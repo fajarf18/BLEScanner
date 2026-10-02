@@ -1,0 +1,10 @@
+Final validation — NearTrace
+UTC: 2026-10-01T10:51:38.654294+00:00
+Command: ./gradlew assembleDebug testDebugUnitTest lintDebug
+Result: BUILD SUCCESSFUL
+Unit tests: 4, failures: 0, errors: 0, skipped: 0
+Android lint: 0 errors, 15 warnings (see lint-report.html).
+APK: debug signed, applicationId com.fajar.neartrace, minSdk 26, targetSdk 35.
+APK SHA-256: 91e86c39a965c782086394f6964641c99443aa687ea883f8bb7d5e2be33984ad
+Physical-device BLE/radio and runtime UI testing: NOT performed.
+Visual HTML preview: inspected at 1440px and 390px; illustrative sample data, NOT an Android screenshot.

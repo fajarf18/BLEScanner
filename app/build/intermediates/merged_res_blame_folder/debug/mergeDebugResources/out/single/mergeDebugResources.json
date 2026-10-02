@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "com.fajar.neartrace.app-debug-62:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.fajar.neartrace.app-main-64:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.fajar.neartrace.app-debug-62:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.fajar.neartrace.app-main-64:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.fajar.neartrace.app-debug-62:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.fajar.neartrace.app-main-64:/drawable/ic_launcher_foreground.xml"
+    }
+]
