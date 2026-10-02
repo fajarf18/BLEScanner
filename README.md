@@ -6,7 +6,7 @@ BLE Scannner adalah aplikasi Android untuk memindai perangkat **Bluetooth Low En
 - **Versi:** 1.0.0
 - **Minimum Android:** Android 8.0 (API 26)
 - **Release APK:** [GitHub Release v1.0.0](https://github.com/fajarf18/BLEScanner/releases/tag/v1.0.0)
-- **Rekayasa Tampilan:** ![Rekayasa] (docs/ui-mobile.png)
+  
 ## Fitur aplikasi
 
 1. **Scanner BLE**
@@ -226,3 +226,8 @@ NearTrace/
 ├── README.md
 └── build.gradle.kts
 ```
+## Screenshoot
+<img width="300" height="683" alt="WhatsApp Image 2026-10-02 at 12 31 02" src="https://github.com/user-attachments/assets/c0c78e2f-a69a-40f3-ad38-e8ff9c96c60c" />
+<img width="300" height="683" alt="WhatsApp Image 2026-10-02 at 12 31 03 (1)" src="https://github.com/user-attachments/assets/ee674cfe-d009-4a71-93fa-0e60c61985e9" />
+<img width="300" height="683" alt="WhatsApp Image 2026-10-02 at 12 31 03" src="https://github.com/user-attachments/assets/b6d86ca3-03b1-4345-b094-003070db1628" />
+
