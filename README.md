@@ -1,63 +1,95 @@
-# TechTest Bluetooth
+# BLE Scanner
 
-TechTest Bluetooth adalah aplikasi Android untuk memindai perangkat Bluetooth Low Energy (BLE) di sekitar, melihat kekuatan sinyalnya, dan menyimpan riwayat perangkat yang pernah ditemukan. Aplikasi dibuat dengan Kotlin dan Jetpack Compose.
+BLE Scannner adalah aplikasi Android untuk memindai perangkat **Bluetooth Low Energy (BLE)** di sekitar. Hasil pemindaian ditampilkan sebagai daftar perangkat dengan alamat Bluetooth, nama bila tersedia, RSSI, dan zona kedekatan. Pengguna dapat memilih perangkat untuk melihat radar sinyal, lalu melihat kembali perangkat tersebut pada halaman riwayat.
 
-## Fitur
+- **Package:** `com.fajar.neartrace`
+- **Versi:** 1.0.0
+- **Minimum Android:** Android 8.0 (API 26)
+- **Release APK:** [GitHub Release v1.0.0](https://github.com/fajarf18/BLEScanner/releases/tag/v1.0.0)
+- **Rekayasa Tampilan:** [Rekayasa] (docs/ui-mobile.png)
+## Fitur aplikasi
 
-- Scan BLE secara real-time dengan tombol mulai dan berhenti.
-- Menampilkan nama perangkat bila tersedia, alamat Bluetooth, dan nilai RSSI.
-- Mengambil nama dari data advertising BLE, cache Android, atau perangkat yang sudah dipair bila alamatnya cocok.
-- Pencarian berdasarkan nama atau alamat serta filter kekuatan sinyal.
-- Halaman detail/radar untuk melihat kedekatan dan perubahan sinyal target.
-- Riwayat lokal perangkat menggunakan Room.
-- Dukungan izin Bluetooth untuk Android 12+ dan izin lokasi untuk Android lama.
+1. **Scanner BLE**
+   - Memulai dan menghentikan pemindaian secara manual.
+   - Menampilkan perangkat berdasarkan hasil advertising BLE yang diterima.
+   - Mengurutkan daftar dari RSSI terkuat ke terlemah.
+   - Menghapus perangkat dari daftar aktif jika tidak ada paket baru selama 12 detik.
 
-## Kebutuhan
+2. **Pencarian dan filter**
+   - Pencarian berdasarkan nama perangkat atau alamat Bluetooth.
+   - Filter ambang RSSI agar daftar hanya menampilkan perangkat dengan sinyal minimum tertentu.
 
-| Komponen | Versi |
+3. **Detail perangkat / radar**
+   - Menampilkan status kedekatan berdasarkan RSSI.
+   - Menampilkan estimasi zona: sangat dekat, dekat, cukup dekat, lemah, sangat lemah, atau sinyal hilang.
+   - Menampilkan perubahan sinyal agar pengguna dapat melihat apakah perangkat mendekat atau menjauh.
+
+4. **Riwayat lokal**
+   - Menyimpan alamat, nama yang tersedia, RSSI terakhir, RSSI terkuat, dan waktu terakhir perangkat terlihat.
+   - Riwayat tetap tersimpan setelah aplikasi ditutup karena memakai database Room.
+
+5. **Penanganan nama perangkat**
+   - Mencoba mengambil nama dari `BluetoothDevice.name`.
+   - Membaca *Complete Local Name* atau *Shortened Local Name* dari data advertising BLE.
+   - Menggunakan nama perangkat yang pernah dipair apabila alamat Bluetoothnya cocok.
+   - Jika nama tidak tersedia, perangkat tetap ditampilkan dengan label **Perangkat BLE tanpa nama** dan alamat Bluetoothnya.
+
+---
+
+## Setup dan cara menjalankan
+
+### Prasyarat
+
+| Komponen | Kebutuhan |
 | --- | --- |
-| Android Studio | Ladybug atau lebih baru |
-| JDK | 17 |
-| Android SDK | 35 |
-| Minimum Android | API 26 / Android 8.0 |
-| Package aplikasi | `com.fajar.neartrace` |
+| IDE | Android Studio Ladybug atau versi lebih baru |
+| Java | JDK 17 |
+| Android SDK | Platform API 35 dan Build Tools yang direkomendasikan Android Studio |
+| Gradle | Gradle Wrapper sudah disertakan pada proyek |
+| Perangkat uji | Ponsel Android fisik yang memiliki Bluetooth LE |
 
-Untuk menguji pemindaian Bluetooth, gunakan ponsel Android fisik. Emulator tidak dapat menggantikan sinyal BLE nyata.
+> Emulator dapat menjalankan tampilan aplikasi, tetapi tidak dapat dipakai sebagai pengganti pengujian sinyal BLE nyata.
 
-## Kompilasi dengan Android Studio
+### Menjalankan dari Android Studio
 
-1. Ekstrak source code, lalu buka folder `NearTrace` melalui **File → Open** di Android Studio.
-2. Jika diminta, pilih **JDK 17** dan pasang **Android SDK Platform 35** melalui SDK Manager.
-3. Tunggu proses **Gradle Sync** sampai selesai.
-4. Hubungkan ponsel dengan USB debugging atau pilih emulator dari daftar device.
-5. Klik tombol **Run** ▶ untuk memasang dan menjalankan aplikasi.
-6. Saat aplikasi berjalan, setujui izin **Nearby devices**. Pada Android 11 ke bawah, setujui izin lokasi dan aktifkan lokasi sistem bila diperlukan.
+1. Clone repository atau ekstrak source code.
+2. Buka Android Studio, pilih **File → Open**, lalu pilih folder `NearTrace`.
+3. Saat Android Studio meminta konfigurasi SDK/JDK:
+   - pilih **JDK 17**;
+   - instal **Android SDK Platform 35** bila belum tersedia.
+4. Tunggu proses **Gradle Sync** selesai tanpa error.
+5. Hubungkan ponsel Android melalui USB dan aktifkan **USB debugging**, atau pilih perangkat target pada toolbar Android Studio.
+6. Klik tombol **Run** ▶.
+7. Saat aplikasi dibuka, setujui izin Bluetooth yang diminta.
 
-## Membuat APK
+### Izin Bluetooth
 
-### Dari Android Studio
+| Versi Android | Izin yang diperlukan | Catatan |
+| --- | --- | --- |
+| Android 12 / API 31 ke atas | `BLUETOOTH_SCAN` dan `BLUETOOTH_CONNECT` | Ditampilkan kepada pengguna sebagai izin **Nearby devices**. |
+| Android 11 / API 30 ke bawah | Bluetooth dan izin lokasi | Android lama mensyaratkan izin lokasi untuk scan BLE. Lokasi sistem juga mungkin perlu aktif. |
 
-Pilih menu:
+### Build APK debug
+
+Melalui Android Studio:
 
 ```text
 Build → Build Bundle(s) / APK(s) → Build APK(s)
 ```
 
-APK debug berada di:
+Lokasi file APK debug:
 
 ```text
 app/build/outputs/apk/debug/app-debug.apk
 ```
 
-### Dari terminal
-
-Jalankan perintah berikut dari folder proyek:
+Melalui terminal pada root proyek:
 
 ```bash
 ./gradlew assembleDebug
 ```
 
-Jika `JAVA_HOME` belum mengarah ke JDK 17, atur terlebih dahulu. Contoh Linux/macOS:
+Jika terminal memakai JDK lain, arahkan `JAVA_HOME` ke JDK 17 terlebih dahulu:
 
 ```bash
 export JAVA_HOME=/path/ke/jdk-17
@@ -65,35 +97,132 @@ export PATH="$JAVA_HOME/bin:$PATH"
 ./gradlew assembleDebug
 ```
 
-## Menjalankan pemeriksaan
+### Menjalankan test
 
 ```bash
 ./gradlew testDebugUnitTest
 ```
 
-## Arsitektur
+Test unit mencakup aturan batas zona RSSI, fallback nama perangkat, dan perhitungan estimasi kedekatan.
 
-Aplikasi menggunakan pola **MVVM**. Alur data utamanya:
+---
+
+## Arsitektur dan alur data
+
+Aplikasi memakai pola **MVVM (Model–View–ViewModel)**. Tujuannya agar kode UI tidak langsung mengakses Bluetooth atau database.
 
 ```text
-AndroidBleScanner → DeviceRepository → ViewModel → Compose UI
+Android BLE API
+      ↓
+AndroidBleScanner
+      ↓
+DeviceRepository
+      ↓
+ViewModel (StateFlow)
+      ↓
+Jetpack Compose UI
+      ↓
+Room database untuk riwayat
 ```
 
-| Bagian | Tanggung jawab |
+### Pembagian package
+
+| Lokasi | Isi dan tanggung jawab |
 | --- | --- |
-| `data/ble` | Menjalankan scan BLE dan membaca nama dari advertising atau informasi Android yang tersedia. |
-| `data/local` | Menyimpan riwayat perangkat dengan Room (`DeviceEntity`, `DeviceDao`, dan `NearTraceDatabase`). |
-| `data/repository` | Menjadi penghubung antara scanner BLE, riwayat lokal, dan ViewModel. |
-| `domain` | Menyimpan model `BleDevice` serta aturan zona sinyal berdasarkan RSSI. |
-| `ui/screens` | Menyediakan layar scanner, detail/radar, dan riwayat. |
-| `ui/components` | Komponen Compose yang digunakan ulang, seperti kartu perangkat dan indikator sinyal. |
-| `di` | Konfigurasi dependency injection Hilt. |
+| `data/ble` | `AndroidBleScanner` membungkus callback Android BLE menjadi `Flow<BleDevice>`. Kelas ini memulai/menghentikan scan, membaca RSSI, alamat, dan nama yang tersedia. |
+| `data/local` | `DeviceEntity`, `DeviceDao`, dan `NearTraceDatabase` untuk menyimpan riwayat menggunakan Room. |
+| `data/repository` | `DeviceRepository` menghubungkan scanner dengan database dan mengatur penyimpanan perangkat yang ditemukan. |
+| `domain` | Model `BleDevice` dan `SignalZone`. Bagian ini berisi aturan zona RSSI serta fallback tampilan nama. |
+| `ui/screens` | `DashboardScreen`, `TrackingScreen`, dan `HistoryScreen` beserta ViewModel masing-masing. |
+| `ui/components` | Komponen Compose yang dipakai ulang, seperti kartu perangkat dan indikator kekuatan sinyal. |
+| `ui/theme` | Warna dan tema Compose. |
+| `di` | Konfigurasi Hilt untuk menyediakan scanner, repository, DAO, dan database. |
 
-`DashboardViewModel` mengelola daftar perangkat aktif dan memperbarui RSSI berdasarkan alamat Bluetooth. `TrackingViewModel` menangani perangkat yang dipilih pada halaman radar. `HistoryViewModel` membaca dan menghapus riwayat lokal.
+### Alur saat scan
 
-## Catatan penggunaan BLE
+1. Pengguna menekan **Mulai pemindaian** pada dashboard.
+2. `DashboardViewModel` memanggil `DeviceRepository.scan()`.
+3. Repository meneruskan hasil dari `AndroidBleScanner`.
+4. Setiap `ScanResult` diubah menjadi `BleDevice`.
+5. Daftar di ViewModel dikelompokkan menggunakan alamat Bluetooth. Jika alamat yang sama muncul lagi, RSSI diperbarui tanpa membuat baris baru.
+6. Hasil terbaru disimpan ke Room sebagai riwayat.
+7. Compose membaca `StateFlow` dan memperbarui tampilan daftar secara otomatis.
 
-- Nama perangkat BLE tidak wajib ada di paket advertising. Jika tidak tersedia, aplikasi menampilkan **Perangkat BLE tanpa nama** dan alamat Bluetoothnya.
-- Satu perangkat fisik dapat menggunakan alamat privat atau lebih dari satu identitas BLE. Karena itu, daftar dikelompokkan berdasarkan alamat Bluetooth yang diterima aplikasi.
-- RSSI adalah indikator kekuatan sinyal, bukan pengukuran jarak yang presisi. Dinding, posisi perangkat, baterai, dan kondisi sekitar dapat memengaruhi nilainya.
-- Radar menggambarkan kedekatan berdasarkan RSSI, bukan arah perangkat atau lokasi GPS.
+---
+
+## Library dan alasan pemilihan
+
+| Teknologi / library | Digunakan untuk | Alasan pemilihan |
+| --- | --- | --- |
+| **Kotlin 2.0.21** | Bahasa utama | Bahasa modern yang direkomendasikan untuk Android; null safety membantu saat nama perangkat atau hasil BLE tidak tersedia. |
+| **Jetpack Compose** | Pembuatan UI | UI berbasis state lebih mudah diperbarui saat RSSI berubah terus-menerus. Mengurangi kebutuhan adapter dan XML layout. |
+| **Material 3** | Komponen UI | Menyediakan komponen Android yang konsisten, aksesibel, dan mendukung light/dark theme. |
+| **Android Bluetooth LE API** | Pemindaian BLE | API bawaan Android untuk menerima advertising packet dan RSSI. Tidak membutuhkan library pihak ketiga. |
+| **ViewModel + StateFlow** | State halaman | State scan tetap terkelola saat perubahan konfigurasi dan UI bisa mengamati pembaruan secara reaktif. |
+| **Kotlin Coroutines + Flow** | Proses asynchronous | Callback scan diubah menjadi `Flow`, sehingga proses dapat dibatalkan saat layar berhenti atau scan dihentikan. |
+| **Hilt 2.52** | Dependency injection | Menghindari pembuatan scanner dan database secara manual pada banyak kelas; memudahkan pengujian dan pengelolaan lifecycle. |
+| **Room 2.6.1** | Database lokal | Menyimpan riwayat secara terstruktur dan aman tanpa backend/server. |
+| **KSP** | Code generation | Dipakai oleh Hilt dan Room untuk menghasilkan kode saat build dengan waktu build yang lebih baik dibanding pemrosesan annotation lama. |
+| **Navigation Compose** | Perpindahan halaman | Menangani navigasi dashboard, detail/radar, dan riwayat dalam aplikasi Compose. |
+| **JUnit 4** | Unit test | Digunakan untuk memverifikasi aturan domain yang tidak memerlukan perangkat Android fisik. |
+
+---
+
+## Known issues dan keterbatasan
+
+1. **Nama perangkat tidak selalu tersedia**  
+   Nama pada BLE bersifat opsional. Perangkat yang tidak mengirim nama pada advertising, belum pernah dipair, dan tidak memiliki nama cache Android akan muncul sebagai **Perangkat BLE tanpa nama**.
+
+2. **Satu perangkat fisik dapat terlihat sebagai beberapa entri**  
+   Beberapa perangkat menggunakan alamat MAC privat/acak untuk privasi atau memiliki lebih dari satu identitas BLE. Aplikasi mengelompokkan data berdasarkan alamat yang diterima; alamat yang berbeda dianggap entri berbeda.
+
+3. **Smartwatch/headset dapat tidak muncul**  
+   Perangkat hanya terlihat bila sedang mengirim BLE advertising. Beberapa smartwatch atau headset berhenti advertising setelah terhubung ke ponsel, saat hemat daya aktif, atau ketika tidak berada pada mode pairing.
+
+4. **RSSI tidak sama dengan jarak pasti**  
+   RSSI dipengaruhi penghalang, posisi antena, tubuh pengguna, baterai, dan interferensi radio. Radar dipakai sebagai indikator kedekatan, bukan pengukur jarak profesional.
+
+5. **Tidak ada koneksi otomatis ke perangkat**  
+   Aplikasi tidak menjalankan pairing atau koneksi GATT ke setiap perangkat yang ditemukan. Keputusan ini menghindari banyak dialog, pemakaian baterai berlebih, serta risiko mengganggu koneksi pengguna.
+
+6. **Pengujian BLE tidak representatif pada emulator**  
+   Fitur scan harus diuji di ponsel fisik. Emulator hanya berguna untuk menguji UI dan alur navigasi.
+
+---
+
+## Asumsi teknis dan kendala pengerjaan
+
+### Asumsi
+
+- Perangkat target mendukung BLE dan sedang mengirim advertising packet.
+- Alamat Bluetooth hasil scan dipakai sebagai identitas perangkat selama alamat tersebut tidak berubah.
+- Pengguna memberi izin Bluetooth yang diperlukan sebelum memulai scan.
+- Penyimpanan riwayat bersifat lokal; tidak ada sinkronisasi cloud dan tidak ada data scan yang dikirim ke server.
+- Zona kedekatan ditentukan dari rentang RSSI. Nilai tersebut digunakan untuk tampilan dan tidak diklaim sebagai jarak fisik yang presisi.
+
+### Kendala
+
+- Implementasi izin Bluetooth berbeda antara Android 11 ke bawah dan Android 12 ke atas, sehingga aplikasi perlu mendukung dua pola izin.
+- Isi advertising packet dikendalikan oleh perangkat lain. Aplikasi tidak dapat memaksa perangkat mengirim nama atau identitas tetap.
+- MAC address privat dapat membuat satu perangkat yang sama tampak baru pada sesi scan berikutnya.
+- Data RSSI berubah cepat. UI perlu memperbarui daftar tanpa menduplikasi perangkat dengan alamat yang sama.
+- Validasi akhir perilaku radio tetap bergantung pada perangkat fisik dan kondisi lingkungan saat pengujian.
+
+---
+
+## Struktur proyek
+
+```text
+NearTrace/
+├── app/
+│   └── src/
+│       ├── main/java/com/fajar/neartrace/
+│       │   ├── data/
+│       │   ├── di/
+│       │   ├── domain/
+│       │   └── ui/
+│       ├── main/res/
+│       └── test/
+├── README.md
+└── build.gradle.kts
+```
