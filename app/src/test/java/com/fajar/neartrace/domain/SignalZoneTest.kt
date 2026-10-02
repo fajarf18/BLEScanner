@@ -21,8 +21,8 @@ class SignalZoneTest {
         assertTrue(BleDevice("B", null, -80).distanceMeters > BleDevice("A", null, -40).distanceMeters)
     }
     @Test fun unknownNameHasReadableFallback() {
-        assertEquals("Perangkat tanpa nama", BleDevice("A", null, -40).displayName)
-        assertEquals("Perangkat tanpa nama", BleDevice("A", "   ", -40).displayName)
+        assertEquals("Perangkat BLE tanpa nama", BleDevice("A", null, -40).displayName)
+        assertEquals("Perangkat BLE tanpa nama", BleDevice("A", "   ", -40).displayName)
     }
     @Test fun stableIdentityPreservesProvidedName() {
         assertEquals("Watch", BleDevice("AA:BB", "Watch", -40).displayName)

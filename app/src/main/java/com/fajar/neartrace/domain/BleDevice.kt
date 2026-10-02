@@ -9,7 +9,7 @@ data class BleDevice(
     val rssi: Int,
     val lastSeen: Long = System.currentTimeMillis()
 ) {
-    val displayName: String get() = name?.takeIf { it.isNotBlank() } ?: "Perangkat tanpa nama"
+    val displayName: String get() = name?.takeIf { it.isNotBlank() } ?: "Perangkat BLE tanpa nama"
     val distanceMeters: Double get() = 10.0.pow((-59 - rssi) / 20.0).coerceIn(0.1, 99.0)
     val zone: SignalZone get() = SignalZone.from(rssi)
 }

@@ -1,4 +1,5 @@
-# TechTest Bluetooth
+# Bluetooth Low Energy Scanner
+Nama: Fajar Fathurrozak
 
 Aplikasi Android untuk melihat perangkat Bluetooth Low Energy (BLE) di sekitar dan memantau kekuatan sinyalnya. Proyek ini dibuat dengan Kotlin dan Jetpack Compose.
 
@@ -10,16 +11,16 @@ Aplikasi Android untuk melihat perangkat Bluetooth Low Energy (BLE) di sekitar d
 - Menyaring perangkat berdasarkan kekuatan sinyal.
 - Membuka detail perangkat untuk melihat radar kedekatan dan perubahan sinyal.
 - Menyimpan perangkat yang pernah terdeteksi ke riwayat lokal.
-- Menghapus satu item atau seluruh riwayat bila diperlukan.
+- Menghapus satu item atau seluruh riwayat jika diperlukan.
 
 ## Menjalankan proyek
 
 1. Ekstrak proyek lalu buka foldernya di Android Studio.
 2. Saat diminta, gunakan **JDK 17** dan instal **Android SDK 35**.
-3. Tunggu Gradle selesai sinkronisasi.
+3. Tunggu Gradle hingga selesai sinkronisasi.
 4. Pilih ponsel Android atau emulator dari toolbar, lalu klik **Run**.
-5. Untuk pemindaian BLE yang sebenarnya, gunakan ponsel fisik. Emulator tidak menyediakan sinyal Bluetooth nyata.
-6. Izinkan akses **Nearby devices** di Android 12 ke atas. Pada Android 11 ke bawah, aplikasi akan meminta izin lokasi untuk pemindaian Bluetooth.
+5. Untuk pemindaian BLE yang sebenarnya, gunakan ponsel fisik. (Menggunakan Build APK yang telah disediakan dibawah)
+6. Izinkan akses **Nearby devices** di Android 12 ke atas. Pada Android 11 ke bawah, aplikasi akan meminta izin lokasi dan bluetooth untuk pemindaian Bluetooth.
 
 ## Membuat APK
 
@@ -31,12 +32,6 @@ APK debug akan dibuat di:
 
 ```text
 app/build/outputs/apk/debug/app-debug.apk
-```
-
-Atau dari terminal di folder proyek:
-
-```bash
-./gradlew assembleDebug
 ```
 
 ## Catatan teknis

@@ -45,7 +45,11 @@ class DashboardViewModel @Inject constructor(private val repository: DeviceRepos
             try {
                 repository.scan().collect { fresh ->
                     _state.update { state ->
-                        val next = state.devices.associateBy { it.address }.toMutableMap().apply { put(fresh.address, fresh) }
+                        val previous = state.devices.firstOrNull { it.address == fresh.address }
+                        // Advertising packets often omit the local name after it was seen once.
+                        // Keep a usable name for the same BLE address instead of replacing it with null.
+                        val updated = fresh.copy(name = fresh.name ?: previous?.name)
+                        val next = state.devices.associateBy { it.address }.toMutableMap().apply { put(updated.address, updated) }
                         state.copy(devices = next.values.sortedByDescending { it.rssi })
                     }
                     repository.remember(fresh)

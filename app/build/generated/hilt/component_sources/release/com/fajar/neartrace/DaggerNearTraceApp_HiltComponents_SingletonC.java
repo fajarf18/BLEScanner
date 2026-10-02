@@ -399,20 +399,20 @@ public final class DaggerNearTraceApp_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
-      static String com_fajar_neartrace_ui_screens_TrackingViewModel = "com.fajar.neartrace.ui.screens.TrackingViewModel";
+      static String com_fajar_neartrace_ui_screens_HistoryViewModel = "com.fajar.neartrace.ui.screens.HistoryViewModel";
 
       static String com_fajar_neartrace_ui_screens_DashboardViewModel = "com.fajar.neartrace.ui.screens.DashboardViewModel";
 
-      static String com_fajar_neartrace_ui_screens_HistoryViewModel = "com.fajar.neartrace.ui.screens.HistoryViewModel";
+      static String com_fajar_neartrace_ui_screens_TrackingViewModel = "com.fajar.neartrace.ui.screens.TrackingViewModel";
 
       @KeepFieldType
-      TrackingViewModel com_fajar_neartrace_ui_screens_TrackingViewModel2;
+      HistoryViewModel com_fajar_neartrace_ui_screens_HistoryViewModel2;
 
       @KeepFieldType
       DashboardViewModel com_fajar_neartrace_ui_screens_DashboardViewModel2;
 
       @KeepFieldType
-      HistoryViewModel com_fajar_neartrace_ui_screens_HistoryViewModel2;
+      TrackingViewModel com_fajar_neartrace_ui_screens_TrackingViewModel2;
     }
   }
 
@@ -461,20 +461,20 @@ public final class DaggerNearTraceApp_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
-      static String com_fajar_neartrace_ui_screens_TrackingViewModel = "com.fajar.neartrace.ui.screens.TrackingViewModel";
+      static String com_fajar_neartrace_ui_screens_DashboardViewModel = "com.fajar.neartrace.ui.screens.DashboardViewModel";
 
       static String com_fajar_neartrace_ui_screens_HistoryViewModel = "com.fajar.neartrace.ui.screens.HistoryViewModel";
 
-      static String com_fajar_neartrace_ui_screens_DashboardViewModel = "com.fajar.neartrace.ui.screens.DashboardViewModel";
+      static String com_fajar_neartrace_ui_screens_TrackingViewModel = "com.fajar.neartrace.ui.screens.TrackingViewModel";
 
       @KeepFieldType
-      TrackingViewModel com_fajar_neartrace_ui_screens_TrackingViewModel2;
+      DashboardViewModel com_fajar_neartrace_ui_screens_DashboardViewModel2;
 
       @KeepFieldType
       HistoryViewModel com_fajar_neartrace_ui_screens_HistoryViewModel2;
 
       @KeepFieldType
-      DashboardViewModel com_fajar_neartrace_ui_screens_DashboardViewModel2;
+      TrackingViewModel com_fajar_neartrace_ui_screens_TrackingViewModel2;
     }
 
     private static final class SwitchingProvider<T> implements Provider<T> {
